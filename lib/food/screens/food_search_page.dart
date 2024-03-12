@@ -1,0 +1,119 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:food_delivery_app/food/bloc/search_food_bloc.dart';
+import 'package:food_delivery_app/food/model/food_model.dart';
+import 'package:food_delivery_app/food/widget/food_title_widget.dart';
+import 'package:food_delivery_app/utils/universal_variables.dart';
+import 'package:provider/provider.dart';
+
+class SearchPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+        create: (_) => SearchPageBloc(), child: SearchPageContent());
+  }
+}
+
+class SearchPageContent extends StatefulWidget {
+  @override
+  _SearchPageContentState createState() => _SearchPageContentState();
+}
+
+class _SearchPageContentState extends State<SearchPageContent> {
+  final TextEditingController searchCtrl = TextEditingController();
+  late SearchPageBloc searchPageBloc;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      searchPageBloc.loadFoodList();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    searchPageBloc = Provider.of<SearchPageBloc>(context);
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.blue[50],
+      ),
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            children: [
+              createSearchBar(),
+              Expanded(
+                child: Container(
+                  color: Colors.white10,
+                  child: buildSuggestions(searchPageBloc.query),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  buildSuggestions(String query) {
+    final List<FoodModel> suggestionList =
+        searchPageBloc.searchFoodsFromList(query);
+    return Container(
+      child: suggestionList.length == -1
+          ? Center(child: Center(child: CircularProgressIndicator()))
+          : ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: suggestionList.length,
+              itemBuilder: (_, index) {
+                return FoodTitleWidget(
+                  suggestionList[index],
+                );
+              }),
+    );
+  }
+
+  createSearchBar() {
+    return Container(
+      margin: const EdgeInsets.all(20.0),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextField(
+              onChanged: (search) {
+                searchPageBloc.setQuery(search);
+              },
+              controller: searchCtrl,
+              cursorColor: Colors.black,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.go,
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                  hintText: "Search..."),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: UniversalVariables.darkBlueColor,
+                ),
+                onPressed: null),
+          ),
+        ],
+      ),
+    );
+  }
+}
