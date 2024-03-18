@@ -43,17 +43,28 @@ class _LoginPageState extends State<LoginPageContent> {
 
   buildForm() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 20.0),
+        const Center(
+          child: Text(
+            "Welcome Back",
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const Center(
+          child: Text("Enter your credentials to login"),
+        ),
+        const SizedBox(height: 10.0),
         Hero(
           tag: 'hero',
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
-            radius: 100.0,
+            radius: 70.0,
             child: Image.asset('assets/logo.jpg'),
           ),
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(height: 15.0),
         TextFormField(
             validator: (email) {
               return loginPageBloc.validateEmail(email ?? "");
@@ -65,6 +76,8 @@ class _LoginPageState extends State<LoginPageContent> {
               contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+              fillColor: Colors.blue.withOpacity(0.1),
+              filled: true,
             )),
         const SizedBox(height: 10.0),
         TextFormField(
@@ -78,8 +91,10 @@ class _LoginPageState extends State<LoginPageContent> {
               contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+              fillColor: Colors.blue.withOpacity(0.1),
+              filled: true,
             )),
-        const SizedBox(height: 10.0),
+        const SizedBox(height: 8.0),
         TextFormField(
           validator: (password) {
             return loginPageBloc.validatePassword(password ?? "");
@@ -87,38 +102,57 @@ class _LoginPageState extends State<LoginPageContent> {
           controller: textPasswordController,
           decoration: InputDecoration(
             hintText: 'password',
-            prefixIcon: const Icon(Icons.lock),
+            prefixIcon: const Icon(Icons.password),
             contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-          ),
-        ),
-        const SizedBox(height: 50.0),
-        SizedBox(
-          width: double.infinity,
-          child: TextButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(UniversalVariables.darkBlueColor),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              )),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32.0),
             ),
-            onPressed: () => loginPageBloc
-                .validateFormAndLogin(_formkey, textEmailController.text,
-                    textPasswordController.text)
-                .then((_) => gotoHomePage()),
-            child: const Text("Login",
-                style: TextStyle(color: Colors.white, fontSize: 24)),
+            fillColor: Colors.blue.withOpacity(0.1),
+            filled: true,
           ),
         ),
+        const SizedBox(height: 25.0),
+        ElevatedButton(
+          onPressed: () => loginPageBloc
+              .validateFormAndLogin(_formkey, textEmailController.text,
+                  textPasswordController.text)
+              .then((_) => gotoHomePage()),
+          style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            backgroundColor: UniversalVariables.darkBlueColor,
+          ),
+          child: const Text(
+            "Login",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
+        // SizedBox(
+        //   width: double.infinity,
+        //   child: TextButton(
+        //     style: ButtonStyle(
+        //       backgroundColor:
+        //           MaterialStateProperty.all(UniversalVariables.darkBlueColor),
+        //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        //           RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(30.0),
+        //       )),
+        //     ),
+        //     onPressed: () => loginPageBloc
+        //         .validateFormAndLogin(_formkey, textEmailController.text,
+        //             textPasswordController.text)
+        //         .then((_) => gotoHomePage()),
+        //     child: const Text("Login",
+        //         style: TextStyle(color: Colors.white, fontSize: 24)),
+        //   ),
+        // ),
         loginPageBloc.isLoginPressed
             ? const Center(child: CircularProgressIndicator())
             : Container(),
         TextButton.icon(
           onPressed: () => gotoRegisterPage(),
-          icon: const Icon(Icons.person_add),
+          icon: const Icon(Icons.person_add,
+              color: UniversalVariables.darkBlueColor),
           label: const Text("New User? Click Here to Register",
               style: TextStyle(
                   color: Colors.black45, fontWeight: FontWeight.bold)),
