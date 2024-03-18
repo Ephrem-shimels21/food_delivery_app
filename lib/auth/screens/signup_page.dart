@@ -33,7 +33,8 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
     // TODO: // do we need to keep this here or in didChangeDependencies
     registerPageBloc = Provider.of<RegisterPageBloc>(context);
     return Scaffold(
-      body: Container(
+        body: SingleChildScrollView(
+      child: Container(
         color: Colors.white,
         padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
         child: Form(
@@ -41,20 +42,30 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
           child: buildForm(),
         ),
       ),
-    );
+    ));
   }
 
   buildForm() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 20.0),
-        // const FlutterLogo(
-        //   size: 200.0,
-        // ),
+        const Center(
+          child: Text(
+            "Sign Up",
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const Center(
+          child: Text("Create your account",
+              style: TextStyle(
+                  fontSize: 20, color: UniversalVariables.darkBlueColor)),
+        ),
+        const SizedBox(height: 15.0),
         Image.asset(
           'assets/logo.jpg', // replace with the path to your image
           width: 200.0,
-          height: 200.0,
+          height: 150.0,
         ),
         const SizedBox(height: 20.0),
         TextFormField(
@@ -62,7 +73,18 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
             return registerPageBloc.validateEmail(email ?? '');
           },
           controller: textNameController,
-          decoration: const InputDecoration(hintText: "Email"),
+          decoration: InputDecoration(
+              hintText: "Email",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
+              ),
+              fillColor: Colors.blue.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.email,
+                  color: UniversalVariables.darkBlueColor)),
+        ),
+        const SizedBox(
+          height: 10,
         ),
         TextFormField(
           maxLength: 10,
@@ -74,24 +96,48 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
             return registerPageBloc.validatePhone(phone ?? '');
           },
           controller: textPhoneController,
-          decoration: const InputDecoration(hintText: "PhoneNo"),
+          decoration: InputDecoration(
+              hintText: "PhoneNo",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
+              ),
+              fillColor: Colors.blue.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.phone,
+                  color: UniversalVariables.darkBlueColor)),
+        ),
+        const SizedBox(
+          height: 10,
         ),
         TextFormField(
           validator: (password) {
             return registerPageBloc.validatePassword(password ?? '');
           },
           controller: textPasswordController,
-          decoration: const InputDecoration(hintText: "Password"),
+          decoration: InputDecoration(
+              hintText: "Password",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              fillColor: Colors.blue.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.password,
+                  color: UniversalVariables.darkBlueColor)),
         ),
         const SizedBox(height: 20.0),
-        TextButton(
-          style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all(UniversalVariables.darkBlueColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            )),
+        ElevatedButton(
+          // style: ButtonStyle(
+          //   backgroundColor:
+          //       MaterialStateProperty.all(UniversalVariables.darkBlueColor),
+          //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          //       RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.circular(30.0),
+          //   )),
+          // ),
+          style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            backgroundColor: UniversalVariables.darkBlueColor,
           ),
           onPressed: () {
             registerPageBloc
@@ -102,11 +148,18 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
           child: const Text("Register",
               style: TextStyle(
                 color: Colors.white,
+                fontSize: 20,
               )),
         ),
         registerPageBloc.isRegisterPressed
             ? Center(child: CircularProgressIndicator())
             : Container(),
+        const SizedBox(height: 15.0),
+        TextButton(
+          onPressed: () => gotoLoginPage(),
+          child: const Text("Already have an account? Login"),
+        ),
+        const SizedBox(height: 15.0),
       ],
     );
   }
