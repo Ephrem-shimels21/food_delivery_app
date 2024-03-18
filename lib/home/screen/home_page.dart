@@ -34,6 +34,7 @@ class HomePageContent extends StatefulWidget {
 class _HomePageContentState extends State<HomePageContent> {
   late HomePageBloc homePageBloc;
   late FoodDetailPageBloc foodDetailPageBloc;
+  int _current = 0;
 
   @override
   void initState() {
@@ -202,6 +203,46 @@ class _HomePageContentState extends State<HomePageContent> {
       )),
     );
   }
+
+  // createDrawer() {
+  //   List _pages = [
+  //     HomePage(),
+  //     CartPage(),
+  //     MyOrderPage(),
+  //     LoginPage(),
+  //   ];
+  //   onTapped(int index) {
+  //     _current = index;
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => _pages[_current]));
+  //   }
+
+  //   return BottomNavigationBar(
+  //     onTap: (index) => onTapped(index),
+  //     items: const <BottomNavigationBarItem>[
+  //       BottomNavigationBarItem(
+  //         icon: Icon(Icons.home),
+  //         label: 'Home',
+  //       ),
+  //       BottomNavigationBarItem(
+  //         icon: Icon(Icons.shopping_basket),
+  //         label: 'Cart',
+  //       ),
+  //       BottomNavigationBarItem(
+  //         icon: Icon(Icons.fastfood),
+  //         label: 'My Order',
+  //       ),
+  //       BottomNavigationBarItem(
+  //         icon: Icon(Icons.clear),
+  //         label: 'Logout',
+  //       ),
+  //     ],
+  //     selectedItemColor: UniversalVariables.darkBlueColor,
+  //     unselectedItemColor: UniversalVariables.greyColor,
+  //     showUnselectedLabels: true,
+  //     showSelectedLabels: true,
+  //   );
+  // }
 
   createDrawer() {
     return Drawer(
