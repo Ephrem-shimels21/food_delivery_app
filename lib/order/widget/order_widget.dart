@@ -27,7 +27,7 @@ class _OrderWidgetState extends State<OrderWidget> {
     ),
     const Step(
       content: Text('Completed'),
-      title: Text('asd'),
+      title: Text('Completed'),
       isActive: true,
     ),
   ];
@@ -59,7 +59,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                   "https://www.pngitem.com/pimgs/m/252-2523515_delivery-clipart-delivery-order-frames-illustrations.png"),
             ),
             trailing: Text(
-              widget.request.total + " Rs.",
+              widget.request.total + " Birr",
               style: const TextStyle(
                 color: UniversalVariables.darkBlueColor,
                 fontSize: 20.0,

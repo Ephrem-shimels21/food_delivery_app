@@ -12,7 +12,7 @@ class MyOrderPage extends StatefulWidget {
 }
 
 class _MyOrderPageState extends State<MyOrderPage> {
-  List<RequestModel> requestList = [];
+  List<RequestModel> requestList = requestArr;
 
   late User currentUser;
 

@@ -57,17 +57,16 @@ class _HomePageContentState extends State<HomePageContent> {
         title: const Text(
           "Home",
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30.0),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20.0),
         ),
-        backgroundColor: UniversalVariables.greyColor,
+        backgroundColor: Colors.white,
       ),
-      drawer: createDrawer(),
       body: SingleChildScrollView(
         child: Container(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             width: MediaQuery.of(context).size.width,
-            color: UniversalVariables.greyColor,
+            color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +86,7 @@ class _HomePageContentState extends State<HomePageContent> {
                     "Recently Added",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 30.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -102,7 +101,7 @@ class _HomePageContentState extends State<HomePageContent> {
                     "Food Category",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 30.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -123,8 +122,8 @@ class _HomePageContentState extends State<HomePageContent> {
                   child: Text(
                     "For You",
                     style: TextStyle(
-                      color: Colors.black45,
-                      fontSize: 20.0,
+                      color: Colors.black,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -150,8 +149,11 @@ class _HomePageContentState extends State<HomePageContent> {
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                     child: Stack(
                       children: <Widget>[
-                        Image.network(item.image,
-                            fit: BoxFit.cover, width: 1000.0),
+                        Image.network(
+                          item.image,
+                          fit: BoxFit.cover,
+                          width: 800.0,
+                        ),
                         Positioned(
                           bottom: 0.0,
                           left: 0.0,
@@ -204,134 +206,134 @@ class _HomePageContentState extends State<HomePageContent> {
     );
   }
 
-  // createDrawer() {
-  //   List _pages = [
-  //     HomePage(),
-  //     CartPage(),
-  //     MyOrderPage(),
-  //     LoginPage(),
-  //   ];
-  //   onTapped(int index) {
-  //     _current = index;
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => _pages[_current]));
-  //   }
+  createBottomNavigation() {
+    List _pages = [
+      HomePage(),
+      CartPage(),
+      MyOrderPage(),
+      LoginPage(),
+    ];
+    onTapped(int index) {
+      _current = index;
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => _pages[_current]));
+    }
 
-  //   return BottomNavigationBar(
-  //     onTap: (index) => onTapped(index),
-  //     items: const <BottomNavigationBarItem>[
-  //       BottomNavigationBarItem(
-  //         icon: Icon(Icons.home),
-  //         label: 'Home',
-  //       ),
-  //       BottomNavigationBarItem(
-  //         icon: Icon(Icons.shopping_basket),
-  //         label: 'Cart',
-  //       ),
-  //       BottomNavigationBarItem(
-  //         icon: Icon(Icons.fastfood),
-  //         label: 'My Order',
-  //       ),
-  //       BottomNavigationBarItem(
-  //         icon: Icon(Icons.clear),
-  //         label: 'Logout',
-  //       ),
-  //     ],
-  //     selectedItemColor: UniversalVariables.darkBlueColor,
-  //     unselectedItemColor: UniversalVariables.greyColor,
-  //     showUnselectedLabels: true,
-  //     showSelectedLabels: true,
-  //   );
-  // }
-
-  createDrawer() {
-    return Drawer(
-      child: ListView(
-        padding: const EdgeInsets.all(0.0),
-        children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: UniversalVariables.senderColor,
-            ),
-            child: UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: UniversalVariables.senderColor,
-              ),
-              accountName: Text(""),
-              accountEmail: Text(""),
-              currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/eggs-breakfast-avocado-1296x728-header.jpg?w=1155&h=1528")),
-            ),
-          ),
-          ListTile(
-            trailing: const Icon(
-              Icons.arrow_forward_ios,
-            ),
-            leading: const Icon(
-              Icons.home,
-              color: UniversalVariables.darkBlueColor,
-            ),
-            title: const Text(
-              'Home',
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            trailing: const Icon(
-              Icons.arrow_forward_ios,
-            ),
-            leading: const Icon(
-              Icons.shopping_basket,
-              color: UniversalVariables.darkBlueColor,
-            ),
-            title: const Text('Cart'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider(
-                          create: (_) => CartPageBloc(), child: CartPage())));
-            },
-          ),
-          ListTile(
-            trailing: const Icon(
-              Icons.arrow_forward_ios,
-            ),
-            leading: const Icon(
-              Icons.fastfood,
-              color: UniversalVariables.darkBlueColor,
-            ),
-            title: const Text('My Order'),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyOrderPage()));
-            },
-          ),
-          ListTile(
-            trailing: const Icon(
-              Icons.arrow_forward_ios,
-            ),
-            leading: const Icon(
-              Icons.clear,
-              color: UniversalVariables.darkBlueColor,
-            ),
-            title: const Text('Logout'),
-            onTap: () async {
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginPage()));
-              // final AuthMethods _authMethods = AuthMethods();
-              // await _authMethods.logout();
-            },
-          ),
-        ],
-      ),
+    return BottomNavigationBar(
+      onTap: (index) => onTapped(index),
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_basket),
+          label: 'Cart',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.fastfood),
+          label: 'My Order',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.clear),
+          label: 'Logout',
+        ),
+      ],
+      selectedItemColor: UniversalVariables.darkBlueColor,
+      unselectedItemColor: UniversalVariables.greyColor,
+      showUnselectedLabels: true,
+      showSelectedLabels: true,
     );
   }
+
+  // createDrawer() {
+  //   return Drawer(
+  //     child: ListView(
+  //       padding: const EdgeInsets.all(0.0),
+  //       children: <Widget>[
+  //         const DrawerHeader(
+  //           decoration: BoxDecoration(
+  //             shape: BoxShape.rectangle,
+  //             color: UniversalVariables.senderColor,
+  //           ),
+  //           child: UserAccountsDrawerHeader(
+  //             decoration: BoxDecoration(
+  //               color: UniversalVariables.senderColor,
+  //             ),
+  //             accountName: Text(""),
+  //             accountEmail: Text(""),
+  //             currentAccountPicture: CircleAvatar(
+  //                 backgroundImage: NetworkImage(
+  //                     "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/eggs-breakfast-avocado-1296x728-header.jpg?w=1155&h=1528")),
+  //           ),
+  //         ),
+  //         ListTile(
+  //           trailing: const Icon(
+  //             Icons.arrow_forward_ios,
+  //           ),
+  //           leading: const Icon(
+  //             Icons.home,
+  //             color: UniversalVariables.darkBlueColor,
+  //           ),
+  //           title: const Text(
+  //             'Home',
+  //           ),
+  //           onTap: () {
+  //             Navigator.pop(context);
+  //           },
+  //         ),
+  //         ListTile(
+  //           trailing: const Icon(
+  //             Icons.arrow_forward_ios,
+  //           ),
+  //           leading: const Icon(
+  //             Icons.shopping_basket,
+  //             color: UniversalVariables.darkBlueColor,
+  //           ),
+  //           title: const Text('Cart'),
+  //           onTap: () {
+  //             Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(
+  //                     builder: (context) => ChangeNotifierProvider(
+  //                         create: (_) => CartPageBloc(), child: CartPage())));
+  //           },
+  //         ),
+  //         ListTile(
+  //           trailing: const Icon(
+  //             Icons.arrow_forward_ios,
+  //           ),
+  //           leading: const Icon(
+  //             Icons.fastfood,
+  //             color: UniversalVariables.darkBlueColor,
+  //           ),
+  //           title: const Text('My Order'),
+  //           onTap: () {
+  //             Navigator.push(context,
+  //                 MaterialPageRoute(builder: (context) => MyOrderPage()));
+  //           },
+  //         ),
+  //         ListTile(
+  //           trailing: const Icon(
+  //             Icons.arrow_forward_ios,
+  //           ),
+  //           leading: const Icon(
+  //             Icons.clear,
+  //             color: UniversalVariables.darkBlueColor,
+  //           ),
+  //           title: const Text('Logout'),
+  //           onTap: () async {
+  //             Navigator.pop(context);
+  //             Navigator.push(context,
+  //                 MaterialPageRoute(builder: (context) => LoginPage()));
+  //             // final AuthMethods _authMethods = AuthMethods();
+  //             // await _authMethods.logout();
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   createPopularFoodList() {
     return Container(
@@ -344,9 +346,9 @@ class _HomePageContentState extends State<HomePageContent> {
             child: Text(
               "Popular Food ",
               style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 16.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black45),
+                  color: Colors.black),
             ),
           ),
           const SizedBox(
@@ -378,7 +380,7 @@ class _HomePageContentState extends State<HomePageContent> {
           // Replace this container with your Map widget
           Container(
             decoration: const BoxDecoration(
-              color: UniversalVariables.greyColor,
+              color: Colors.white70,
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(20.0),
                 bottomLeft: Radius.circular(20.0),
@@ -393,8 +395,8 @@ class _HomePageContentState extends State<HomePageContent> {
               onTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SearchPage())),
               child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
+                decoration: BoxDecoration(
+                    color: Colors.blueGrey.shade100,
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 child: const Row(
                   children: <Widget>[
@@ -476,8 +478,8 @@ class _HomePageContentState extends State<HomePageContent> {
 
   createFoodCategory() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20.0),
-      height: 300.0,
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
+      height: 200.0,
       child: homePageBloc.categoryList.length == 0
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(

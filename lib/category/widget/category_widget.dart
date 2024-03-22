@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/category/category_model.dart';
 import 'package:food_delivery_app/category/category_list_page.dart';
+import 'package:food_delivery_app/utils/universal_variables.dart';
 
 class CategoryWidget extends StatelessWidget {
   final CategoryModel category;
@@ -21,7 +22,8 @@ class CategoryWidget extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
-                height: 200.0,
+                height: 100.0,
+                width: 150.0,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image.network(
@@ -43,19 +45,20 @@ class CategoryWidget extends StatelessWidget {
                 ),
                 Icon(
                   Icons.star,
-                  color: Colors.orangeAccent,
+                  color: UniversalVariables.darkBlueColor,
                 ),
                 Text(
                   "4.0,",
                   style: TextStyle(
-                      color: Colors.orangeAccent, fontWeight: FontWeight.bold),
+                      color: UniversalVariables.darkBlueColor,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   width: 5.0,
                 ),
                 Text(
                   "cafe Western Food",
-                  style: TextStyle(color: Colors.black45),
+                  style: TextStyle(color: Colors.black),
                 )
               ])
             ])));

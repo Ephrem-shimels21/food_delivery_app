@@ -165,12 +165,12 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
   }
 
   gotoLoginPage() {
-    Navigator.push(
+    Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   gotoHomePage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const BottomNavigation()));
   }
 }

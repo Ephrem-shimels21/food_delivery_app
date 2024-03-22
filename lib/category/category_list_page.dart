@@ -75,7 +75,7 @@ class _categoryListPageState extends State<CategoryListPage> {
               ),
               child: Column(
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -87,7 +87,9 @@ class _categoryListPageState extends State<CategoryListPage> {
                           Icons.cancel,
                           color: UniversalVariables.blueColor,
                         ),
-                        onPressed: null,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       )
                     ],
                   ),

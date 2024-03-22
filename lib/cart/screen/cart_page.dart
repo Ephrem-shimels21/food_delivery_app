@@ -48,7 +48,7 @@ class _CartPageContentState extends State<CartPageContent> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -62,7 +62,7 @@ class _CartPageContentState extends State<CartPageContent> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontSize: 35.0),
+                    fontSize: 25.0),
               ),
               const Padding(
                 padding: EdgeInsets.only(right: 25.0),
@@ -94,14 +94,14 @@ class _CartPageContentState extends State<CartPageContent> {
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: Colors.black,
-                    fontSize: 25.0),
+                    fontSize: 15.0),
               ),
               Text(
                 "${cartPageBloc.totalPrice} birr",
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontSize: 30.0),
+                    fontSize: 13.0),
               ),
             ],
           ),
@@ -129,7 +129,7 @@ class _CartPageContentState extends State<CartPageContent> {
                 child: const Text(
                   "Place Order",
                   style: TextStyle(
-                      fontSize: 22.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
@@ -143,7 +143,6 @@ class _CartPageContentState extends State<CartPageContent> {
 
   createListCart() {
     var cart = Provider.of<CartPageBloc>(context, listen: true);
-    print(cart.FoodList);
     // print(cartPageBloc.FoodList);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -174,6 +173,7 @@ class _CartPageContentState extends State<CartPageContent> {
 
   handleOrderPlacement() {
     //check if card is empty
+    cartPageBloc.getValue();
     if (cartPageBloc.totalPrice == 0) {
       print("not order");
       return AlertDialog(
@@ -197,7 +197,7 @@ class _CartPageContentState extends State<CartPageContent> {
       );
     } else {
       return AlertDialog(
-        title: const Text('OO Bhai Bohot Paise Hai haa..'),
+        title: const Text('We will deliver to you soon'),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[

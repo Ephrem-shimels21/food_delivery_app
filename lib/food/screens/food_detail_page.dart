@@ -222,9 +222,12 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
                   // do nothing XD
                 },
                 ratingWidget: RatingWidget(
-                  full: const Icon(Icons.star, color: Colors.amber),
-                  half: const Icon(Icons.star_half, color: Colors.amber),
-                  empty: const Icon(Icons.star_border, color: Colors.amber),
+                  full: const Icon(Icons.star,
+                      color: UniversalVariables.darkBlueColor),
+                  half: const Icon(Icons.star_half,
+                      color: UniversalVariables.darkBlueColor),
+                  empty: const Icon(Icons.star_border,
+                      color: UniversalVariables.darkBlueColor),
                 ),
               ),
             ),

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/food/model/food_model.dart';
 import 'package:food_delivery_app/food/screens/food_detail_page.dart';
+import 'package:food_delivery_app/utils/universal_variables.dart';
 
 class FoodTitleWidget extends StatelessWidget {
   final FoodModel fooddata;
@@ -61,13 +62,13 @@ class FoodTitleWidget extends StatelessWidget {
                       ),
                       const Icon(
                         Icons.star,
-                        color: Colors.orangeAccent,
+                        color: UniversalVariables.darkBlueColor,
                       ),
                       Text(
                         doubleInRange(random, 3.5, 5.0).toStringAsFixed(1),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.orangeAccent),
+                            color: UniversalVariables.darkBlueColor),
                       ),
                       const SizedBox(
                         width: 5.0,
@@ -82,7 +83,7 @@ class FoodTitleWidget extends StatelessWidget {
                   Text(
                     "${fooddata.price} birr",
                     style: const TextStyle(
-                        fontSize: 17.0,
+                        fontSize: 10.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black54),
                   ),

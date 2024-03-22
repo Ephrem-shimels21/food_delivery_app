@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/auth/screens/login_page.dart';
+import 'package:food_delivery_app/cart/screen/cart_page.dart';
+import 'package:food_delivery_app/home/screen/home_page.dart';
+import 'package:food_delivery_app/order/screen/my_order_page.dart';
 
 class UniversalVariables {
+  int _current = 0;
   static const Color blueColor = Color(0xff0077d7);
   static const Color lightBlueColor = Color(0xff00b6f3);
   static const Color darkBlueColor = Color(0xff0184dc);
@@ -24,4 +29,65 @@ class UniversalVariables {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+}
+
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _BottomNavigationState createState() => _BottomNavigationState();
+}
+
+class _BottomNavigationState extends State<BottomNavigation> {
+  int _current = 0;
+  final List<Widget> _pages = [
+    HomePage(),
+    CartPage(),
+    MyOrderPage(),
+    LoginPage(),
+  ];
+
+  void onTapped(int index) {
+    setState(() {
+      _current = index;
+    });
+    if (index == 3) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_current],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: onTapped,
+        currentIndex: _current,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fastfood),
+            label: 'My Order',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout),
+            label: 'Logout',
+          ),
+        ],
+        selectedItemColor: UniversalVariables.darkBlueColor,
+        unselectedItemColor: Colors.blue[200],
+        showUnselectedLabels: true,
+        showSelectedLabels: true,
+      ),
+    );
+  }
 }
